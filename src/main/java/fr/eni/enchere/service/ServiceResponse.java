@@ -1,4 +1,4 @@
-package fr.eni.enchere.service.v2;
+package fr.eni.enchere.service;
 
 public class ServiceResponse<T> {
     public String code;

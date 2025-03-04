@@ -17,6 +17,7 @@ public class Utilisateur {
     private String motDePasse;
 
     private int credit;
+
     private boolean admin;
 
     private Adresse adresse;
@@ -117,5 +118,13 @@ public class Utilisateur {
 
     public void setCredit(int credit) {
         this.credit = credit;
+    }
+
+    public boolean isAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
     }
 }
