@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<!-- Header -->
+<div th:include="includes/header"></div>
+
+<div class="uk-flex uk-flex-column uk-background-muted uk-height-viewport" data-uk-height-viewport>
+
+    <div th:include="includes/flash-message"></div>
+
+    <section class="uk-section uk-section-muted uk-width-1-1">
+
+        <div class="uk-flex uk-flex-center">
+            <div class="uk-card uk-card-default uk-card-body uk-width-large uk-padding">
+
+                <!-- Affichage des erreurs -->
+                <div th:if="${param.error}" class="uk-alert-danger" uk-alert>
+                    <p>Identifiant ou mot de passe incorrect.</p>
+                </div>
+
+                <!-- login -->
+                <form th:action="@{/perform_login}" method="post">
+
+                    <!-- Title -->
+                    <h1 class="uk-heading-medium uk-text-center uk-margin-remove-bottom uk-padding-small"
+                        th:text="#{app.auth.title}"></h1>
+                    <hr class="uk-divider-icon uk-margin-small-top">
+
+                    <div class="uk-margin-small">
+                        <div class="uk-inline uk-width-1-1">
+                            <span class="uk-form-icon uk-form-icon-flip" data-uk-icon="icon: user"></span>
+                            <input class="uk-input uk-border-pill"
+                                   th:placeholder="#{app.field.email.label}"
+                                   name="username"
+                                   type="text">
+                        </div>
+                    </div>
+                    <div class="uk-margin-small">
+                        <div class="uk-inline uk-width-1-1">
+                            <span class="uk-form-icon uk-form-icon-flip" data-uk-icon="icon: lock"></span>
+                            <input class="uk-input uk-border-pill"
+                                   th:placeholder="#{app.field.password.label}"
+                                   name="password"
+                                   type="password">
+                        </div>
+                    </div>
+
+                    <div class="uk-margin">
+                        <label><input class="uk-checkbox" type="checkbox" name="remember-me"> Se souvenir de
+                            moi</label>
+                    </div>
+
+
+                    <div class="uk-margin-bottom">
+                        <button type="submit"
+                                class="uk-button uk-button-primary uk-border-pill uk-width-1-1" value="Submit"
+                                th:text="#{app.button.log_in}">LOG IN
+                        </button>
+                    </div>
+
+                    <div class="uk-margin-bottom">
+                        <a class="uk-button uk-button-primary uk-border-pill uk-width-1-1" th:href="@{/sign-up}"
+                           th:text="#{app.button.signup}"></a>
+                    </div>
+
+                </form>
+                <!-- /login -->
+            </div>
+        </div>
+    </section>
+</div>
+
+<div th:include="includes/footer"></div>
+
+</html>

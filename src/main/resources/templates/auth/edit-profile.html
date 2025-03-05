@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<!-- Header -->
+<div th:include="includes/header"></div>
+
+<div class="uk-flex uk-flex-column uk-background-muted uk-height-viewport" data-uk-height-viewport>
+
+    <div th:include="includes/flash-message"></div>
+
+    <section class="uk-section uk-section-muted uk-width-1-1">
+
+        <div class="uk-flex uk-flex-center">
+            <div class="uk-card uk-card-default uk-card-body uk-width-large uk-padding">
+
+                <!-- Title -->
+                <h1 class="uk-heading-medium uk-text-center uk-margin-remove-bottom uk-padding-small"
+                    th:text="#{app.auth.profil.title}"></h1>
+                <hr class="uk-divider-icon uk-margin-small-top">
+
+                <!-- signup -->
+                <form class="toggle-class" action="/sign-up" method="post" th:object="${signUpRequest}">
+
+                    <fieldset class="uk-fieldset">
+                        <legend class="uk-legend" th:text="#{app.fieldset.profile}">Profile</legend>
+                        <!-- Champ de saisie pseudo -->
+                        <div th:replace="fragments/form-fields :: inputField('pseudo', 'app.field.pseudo.label', 'text')"></div>
+                        <div th:replace="fragments/form-fields :: inputField('email', 'app.field.email.label', 'text')"></div>
+                        <div th:replace="fragments/form-fields :: inputField('nom', 'app.field.name.label', 'text')"></div>
+                        <div th:replace="fragments/form-fields :: inputField('prenom', 'app.field.firstname.label', 'text')"></div>
+                        <div th:replace="fragments/form-fields :: inputField('telephone', 'app.field.phone.label', 'text')"></div>
+                    </fieldset>
+
+                    <fieldset class="uk-fieldset">
+                        <legend class="uk-legend" th:text="#{app.fieldset.address}">Adresse</legend>
+
+                        <div th:replace="fragments/form-fields :: inputField('rue', 'app.field.street.label', 'text')"></div>
+                        <div th:replace="fragments/form-fields :: inputField('codePostal', 'app.field.cityCode.label', 'text')"></div>
+                        <div th:replace="fragments/form-fields :: inputField('ville', 'app.field.city.label', 'text')"></div>
+
+                    </fieldset>
+
+                    <div class="uk-margin-bottom">
+                        <button type="submit"
+                                class="uk-button uk-button-primary uk-border-pill uk-width-1-1" value="Submit"
+                                th:text="#{app.button.submit}">
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</div>
+
+<div th:include="includes/footer"></div>
+
+</html>

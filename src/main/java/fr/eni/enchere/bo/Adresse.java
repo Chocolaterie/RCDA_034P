@@ -1,7 +1,11 @@
 package fr.eni.enchere.bo;
 
 
-public class Adresse {
+import java.io.Serializable;
+
+public class Adresse implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private int id;
 

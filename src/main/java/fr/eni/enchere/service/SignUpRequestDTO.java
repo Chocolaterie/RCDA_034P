@@ -46,6 +46,22 @@ public class SignUpRequestDTO {
         return user;
     }
 
+    public static SignUpRequestDTO userToSignUpRequestDTO(Utilisateur user) {
+        SignUpRequestDTO signUpRequestDTO = new SignUpRequestDTO();
+
+        signUpRequestDTO.setPseudo(user.getPseudo());
+        signUpRequestDTO.setNom(user.getNom());
+        signUpRequestDTO.setPrenom(user.getPrenom());
+        signUpRequestDTO.setEmail(user.getEmail());
+        signUpRequestDTO.setTelephone(user.getTelephone());
+
+        signUpRequestDTO.setRue(user.getAdresse().getRue());
+        signUpRequestDTO.setCodePostal(user.getAdresse().getCodePostal());
+        signUpRequestDTO.setVille(user.getAdresse().getVille());
+
+        return signUpRequestDTO;
+    }
+
     public String getPseudo() {
         return pseudo;
     }

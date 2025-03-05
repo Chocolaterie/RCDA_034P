@@ -2,6 +2,7 @@ package fr.eni.enchere.ihm;
 
 import fr.eni.enchere.bo.Utilisateur;
 import fr.eni.enchere.common.LocaleHelpers;
+import fr.eni.enchere.security.AppUserDetails;
 import fr.eni.enchere.service.AuthRequestDTO;
 import fr.eni.enchere.service.AuthService;
 import fr.eni.enchere.service.ServiceResponse;
@@ -9,6 +10,8 @@ import fr.eni.enchere.service.SignUpRequestDTO;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -30,6 +33,11 @@ public class AuthController {
 
     @Autowired
     LocaleHelpers localeHelpers;
+
+    @GetMapping("/login")
+    public String showLoginPage() {
+        return "login"; // Retourne la page login.html
+    }
 
     @GetMapping("/sign-up")
     public String signup(Model model, RedirectAttributes redirectAttributes) {
@@ -85,68 +93,21 @@ public class AuthController {
         return "redirect:/";
     }
 
-    @GetMapping("/auth")
-    public String auth(Model model, RedirectAttributes redirectAttributes) {
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/show-profile")
+    public String showProfile() {
 
-        // Middleware à la main
-        if (model.containsAttribute("loggedUser")) {
-
-            redirectAttributes.addFlashAttribute("flashMessage", new FlashMessage(FLASH_WARNING, localeHelpers.i18n("app.auth.message.already_logged")));
-
-            return "redirect:/";
-        }
-
-        if (!model.containsAttribute("authRequest")) {
-            model.addAttribute("authRequest", new AuthRequestDTO());
-        }
-        return "auth/login";
+        return "auth/show-profile";
     }
 
-    @PostMapping("/auth")
-    public String authPost(@ModelAttribute("authRequest") AuthRequestDTO authRequest, Model model, RedirectAttributes redirectAttributes) {
-        // Controle métier
-        ServiceResponse<Utilisateur> serviceResponse = authService.login(authRequest.email, authRequest.password);
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/edit-profile")
+    public String editProfile(@AuthenticationPrincipal AppUserDetails userDetails, Model model) {
 
-        // Si ok alors session
-        if (serviceResponse.code.equals("200")) {
-
-            // L'user qui viens de resultat du service
-            Utilisateur utilisateur = serviceResponse.data;
-
-            // Ajouter l'user connecté en session
-            model.addAttribute("loggedUser", utilisateur);
-
-            // Flash message success
-            redirectAttributes.addFlashAttribute("flashMessage", new FlashMessage(FLASH_SUCCESS, serviceResponse.message));
-
-            // Redirection à la page d'accueil
-            return "redirect:/";
+        if (!model.containsAttribute("signUpRequest")) {
+            model.addAttribute("signUpRequest", SignUpRequestDTO.userToSignUpRequestDTO(userDetails.getUser()));
         }
 
-        // Sinon retourne page login avec erreurs
-        // Flash message pour l'erreur
-        redirectAttributes.addFlashAttribute("authRequest", authRequest);
-        redirectAttributes.addFlashAttribute("flashMessage", new FlashMessage(FLASH_ERROR, serviceResponse.message));
-
-        // Redirige sur la page auth en GET
-        return "redirect:/auth";
-    }
-
-    @GetMapping("/logout")
-    public String logout(Model model, RedirectAttributes redirectAttributes, HttpSession session, SessionStatus sessionStatus) {
-
-        // Middleware à la main
-        if (!model.containsAttribute("loggedUser")) {
-            return "redirect:/";
-        }
-
-        // Déconnexion et flash message
-        session.removeAttribute("loggedUser");
-        session.invalidate();
-        sessionStatus.setComplete();
-
-        redirectAttributes.addFlashAttribute("flashMessage", new FlashMessage(FLASH_SUCCESS, localeHelpers.i18n("app.auth.logout.success")));
-
-        return "redirect:/";
+        return "auth/edit-profile";
     }
 }

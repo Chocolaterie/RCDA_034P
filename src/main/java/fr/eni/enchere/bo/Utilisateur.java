@@ -1,6 +1,10 @@
 package fr.eni.enchere.bo;
 
-public class Utilisateur {
+import java.io.Serializable;
+
+public class Utilisateur implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private int id;
 
@@ -21,6 +25,8 @@ public class Utilisateur {
     private boolean admin;
 
     private Adresse adresse;
+
+    private int adresseId;
 
     public Utilisateur() {
     }
@@ -119,5 +125,13 @@ public class Utilisateur {
 
     public void setAdmin(boolean admin) {
         this.admin = admin;
+    }
+
+    public int getAdresseId() {
+        return adresseId;
+    }
+
+    public void setAdresseId(int adresseId) {
+        this.adresseId = adresseId;
     }
 }

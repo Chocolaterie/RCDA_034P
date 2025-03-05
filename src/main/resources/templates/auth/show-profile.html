@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<!-- Header -->
+<div th:include="includes/header"></div>
+
+<div class="uk-flex uk-flex-column uk-background-muted uk-height-viewport" data-uk-height-viewport>
+
+    <div th:include="includes/flash-message"></div>
+
+    <section class="uk-section uk-section-muted uk-width-1-1">
+
+        <div class="uk-flex uk-flex-center">
+            <div class="uk-card uk-card-default uk-card-body uk-width-large uk-padding">
+
+                <!-- Title -->
+                <h1 class="uk-heading-medium uk-text-center uk-margin-remove-bottom uk-padding-small"
+                    th:text="#{app.auth.profil.title}"></h1>
+                <hr class="uk-divider-icon uk-margin-small-top">
+
+                <ul class="uk-list uk-list-divider">
+                    <li><span class="uk-text-bold" th:text="#{app.field.firstname.label}"></span> <span class="uk-float-right uk-text-muted" th:text="${#authentication.principal.user.prenom}"></span></li>
+                    <li><span class="uk-text-bold" th:text="#{app.field.name.label}"></span> <span class="uk-float-right uk-text-muted" th:text="${#authentication.principal.user.nom}"></span></li>
+                    <li><span class="uk-text-bold" th:text="#{app.field.phone.label}"></span> <span class="uk-float-right uk-text-muted" th:text="${#authentication.principal.user.telephone}"></span></li>
+                    <li><span class="uk-text-bold" th:text="#{app.field.email.label}"></span> <span class="uk-float-right uk-text-muted" th:text="${#authentication.principal.user.email}"></span></li>
+                </ul>
+
+                <div class="uk-margin-bottom">
+                    <a class="uk-button uk-button-primary uk-border-pill uk-width-1-1" th:href="@{/edit-profile}" th:text="#{app.button.edit}"></a>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<div th:include="includes/footer"></div>
+
+</html>

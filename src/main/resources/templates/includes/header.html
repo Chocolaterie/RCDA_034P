@@ -23,19 +23,14 @@
             <div class="uk-navbar-right">
 
                 <!-- Block connecté -->
-                <ul th:if="${loggedUser == null}" class="uk-navbar-nav">
-                    <li><a th:href="@{/auth}"><span data-uk-icon="icon: sign-in"></span> Login</a></li>
-                </ul>
-                <!-- ./Block connecté -->
-
-                <ul th:if="${loggedUser != null}" class="uk-navbar-nav">
+                <ul th:if="${#authorization.expression('isAuthenticated()')}" class="uk-navbar-nav">
                     <li>
                         <a href="#" data-uk-icon="icon:user"></a>
                         <div class="uk-navbar-dropdown uk-navbar-dropdown-bottom-left">
                             <ul class="uk-nav uk-navbar-dropdown-nav">
                                 <li class="uk-nav-header uk-text-small uk-text-primary">YOUR ACCOUNT</li>
-                                <li><a href="#"><span data-uk-icon="icon: info"></span> Voir le le profil</a></li>
-                                <li><a href="#"><span data-uk-icon="icon: refresh"></span> Modifier le profil</a></li>
+                                <li><a th:href="@{/show-profile}"><span data-uk-icon="icon: info"></span> Voir le le profil</a></li>
+                                <li><a th:href="@{/edit-profile}"><span data-uk-icon="icon: refresh"></span> Modifier le profil</a></li>
                                 <li class="uk-nav-divider"></li>
                                 <li><a th:href="@{/logout}"><span data-uk-icon="icon: sign-out"></span> Logout</a></li>
 
@@ -53,6 +48,13 @@
                         </div>
                     </li>
                 </ul>
+                <!-- ./Block connecté -->
+
+                <!-- Block déconnecté -->
+                <ul th:unless="${#authorization.expression('isAuthenticated()')}" class="uk-navbar-nav">
+                    <li><a th:href="@{/login}"><span data-uk-icon="icon: sign-in"></span> Login</a></li>
+                </ul>
+                <!-- ./Block déconnecté -->
 
             </div>
         </nav>

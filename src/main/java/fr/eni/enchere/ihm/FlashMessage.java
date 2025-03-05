@@ -1,6 +1,11 @@
 package fr.eni.enchere.ihm;
 
-public class FlashMessage {
+import java.io.Serializable;
+
+public class FlashMessage implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     public static final int FLASH_ERROR = 0;
     public static final int FLASH_SUCCESS = 1;
     public static final int FLASH_WARNING = 2;
