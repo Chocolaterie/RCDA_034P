@@ -41,8 +41,12 @@
 
                         <div class="uk-margin-bottom">
                             <button type="submit"
-                                    class="uk-button uk-button-primary uk-border-pill uk-width-1-1" value="Submit">LOG IN
+                                    class="uk-button uk-button-primary uk-border-pill uk-width-1-1" value="Submit"  th:text="#{app.button.log_in}">LOG IN
                             </button>
+                        </div>
+
+                        <div class="uk-margin-bottom">
+                            <a class="uk-button uk-button-primary uk-border-pill uk-width-1-1" th:href="@{/sign-up}" th:text="#{app.button.signup}"></a>
                         </div>
                     </fieldset>
                 </form>

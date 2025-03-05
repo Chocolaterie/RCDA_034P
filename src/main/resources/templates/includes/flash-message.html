@@ -1,7 +1,7 @@
 <th:block th:if="${flashMessage != null}">
 <section class="uk-section uk-section-muted">
     <div class="uk-container">
-        <div th:classappend="${flashMessage.type == 0} ? 'uk-alert-danger' : 'uk-alert-success'" uk-alert>
+        <div th:classappend="${flashMessage.getStyleClassName()}" uk-alert>
             <a href class="uk-alert-close" uk-close></a>
             <p th:text="${flashMessage.message}"></p>
         </div>

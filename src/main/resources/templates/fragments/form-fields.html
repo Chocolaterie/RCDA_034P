@@ -1,0 +1,16 @@
+<!-- form-fields.html -->
+<div th:fragment="inputField(fieldName, labelKey, type)">
+  <div class="uk-margin">
+    <div class="uk-form-controls">
+      <!-- Gestion des erreurs -->
+      <ul th:if="${#fields.hasErrors(fieldName)}">
+        <li class="uk-form-danger" th:each="error : ${#fields.errors(fieldName)}"
+            th:text="${error}">
+        </li>
+      </ul>
+      <input class="uk-input" th:classappend="${#fields.hasErrors(fieldName)} ? 'uk-form-danger' : ''" th:type="${type}" th:field="*{__${fieldName}__}"
+             th:placeholder="#{${labelKey}}"
+             aria-label="Input">
+    </div>
+  </div>
+</div>

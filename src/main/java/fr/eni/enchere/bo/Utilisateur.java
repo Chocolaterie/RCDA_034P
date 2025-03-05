@@ -38,14 +38,7 @@ public class Utilisateur {
     }
 
     public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, Adresse adresse, String motDePasse, int credit) {
-        this.pseudo = pseudo;
-        this.nom = nom;
-        this.prenom = prenom;
-        this.email = email;
-        this.telephone = telephone;
-        this.adresse = adresse;
-        this.motDePasse = motDePasse;
-        this.credit = credit;
+        this(-1, pseudo, nom, prenom, email, telephone, adresse, motDePasse, credit);
     }
 
     public int getId() {

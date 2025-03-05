@@ -3,6 +3,7 @@ package fr.eni.enchere.ihm;
 public class FlashMessage {
     public static final int FLASH_ERROR = 0;
     public static final int FLASH_SUCCESS = 1;
+    public static final int FLASH_WARNING = 2;
 
     String message;
     int type; // 0 = error, 1 = success
@@ -26,5 +27,15 @@ public class FlashMessage {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public String getStyleClassName(){
+        if (type == FLASH_ERROR) {
+            return "uk-alert-danger";
+        }
+        if (type == FLASH_SUCCESS) {
+            return "uk-alert-success";
+        }
+        return "uk-alert-warning";
     }
 }

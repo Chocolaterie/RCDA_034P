@@ -22,6 +22,9 @@ public class Adresse {
         this.ville = ville;
     }
 
+    public Adresse(String rue, String codePostal, String ville) {
+        this(-1, rue, codePostal, ville);
+    }
 
     public int getId() {
         return id;

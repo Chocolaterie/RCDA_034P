@@ -34,7 +34,7 @@ public class AdresseDAO {
     }
 
     public Adresse insert(Adresse adresse) {
-        String sql = "INSERT INTO Utilisateurs (rue, code_postal, ville, adresse_eni) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO ADRESSES (rue, code_postal, ville, adresse_eni) VALUES (?,?,?,?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
         jdbcTemplate.update(connection -> {
@@ -45,6 +45,9 @@ public class AdresseDAO {
             ps.setBoolean(4, true);
             return ps;
         }, keyHolder);
+
+        // hydrater la clé primaire générée
+        adresse.setId(keyHolder.getKey().intValue());
 
         return adresse;
     }

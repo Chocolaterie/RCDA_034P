@@ -10,27 +10,50 @@
 
 <body>
 <!--HEADER-->
-<header style="background-color: #fff; border-bottom: 1px solid #f2f2f2"
-        data-uk-sticky="show-on-up: true; animation: uk-animation-slide-top" class="uk-padding-small">
+<!--HEADER-->
+<header style="background-color: #fff; border-bottom: 1px solid #f2f2f2" data-uk-sticky="show-on-up: true; animation: uk-animation-slide-top">
     <div class="uk-container">
         <nav id="navbar" data-uk-navbar="mode: click;">
             <div class="uk-navbar-left">
+
             </div>
             <div class="uk-navbar-center">
-                <a class="uk-navbar-item uk-logo" href="#">Enchère</a>
+                <a class="uk-navbar-item uk-logo" th:href="@{/}">Enchère</a>
             </div>
             <div class="uk-navbar-right">
+
                 <!-- Block connecté -->
-                <ul th:if="${loggedUser != null}" class="uk-navbar-nav">
-                    <li><span th:text="${'Bienvenue ' + loggedUser.login}" class="uk-text-middle"></span></li>
-                    <li><span><a th:href="@{/logout}" class="uk-button uk-button-default">Deconnexion</a></span></li>
+                <ul th:if="${loggedUser == null}" class="uk-navbar-nav">
+                    <li><a th:href="@{/auth}"><span data-uk-icon="icon: sign-in"></span> Login</a></li>
                 </ul>
                 <!-- ./Block connecté -->
-                <!-- Block deconnecté -->
-                <div th:if="${loggedUser == null}">
-                    <a th:href="@{/auth}" class="uk-button uk-button-default uk-visible@m">Se Connecter</a>
-                </div>
-                <!-- ./Block deconnecté -->
+
+                <ul th:if="${loggedUser != null}" class="uk-navbar-nav">
+                    <li>
+                        <a href="#" data-uk-icon="icon:user"></a>
+                        <div class="uk-navbar-dropdown uk-navbar-dropdown-bottom-left">
+                            <ul class="uk-nav uk-navbar-dropdown-nav">
+                                <li class="uk-nav-header uk-text-small uk-text-primary">YOUR ACCOUNT</li>
+                                <li><a href="#"><span data-uk-icon="icon: info"></span> Voir le le profil</a></li>
+                                <li><a href="#"><span data-uk-icon="icon: refresh"></span> Modifier le profil</a></li>
+                                <li class="uk-nav-divider"></li>
+                                <li><a th:href="@{/logout}"><span data-uk-icon="icon: sign-out"></span> Logout</a></li>
+
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="uk-visible@s">
+                        <div>
+                            <a class="uk-navbar-toggle" data-uk-search-icon href="#"></a>
+                            <div class="uk-drop" data-uk-drop="mode: click; pos: right-center; offset: 0; boundary: #navbar">
+                                <form action="article.html" class="uk-search uk-search-navbar uk-width-1-1">
+                                    <input class="uk-search-input" type="search" placeholder="Search...">
+                                </form>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+
             </div>
         </nav>
     </div>

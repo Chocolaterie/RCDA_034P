@@ -24,6 +24,14 @@ public class AuthDAO {
         this.jdbcTemplate = jdbcTemplate;
     }
 
+    public Utilisateur getUserByEmail(String email) {
+        String sql = "SELECT * FROM Utilisateurs WHERE email = ?";
+
+        List<Utilisateur> users = jdbcTemplate.query(sql, new Object[]{email}, new UserRowMapper());
+
+        return users.isEmpty() ? null : users.get(0);
+    }
+
     public Utilisateur getUserByEmailAndPassword(String email, String password) {
         String sql = "SELECT * FROM Utilisateurs WHERE email = ? AND mot_de_passe = ?";
 
