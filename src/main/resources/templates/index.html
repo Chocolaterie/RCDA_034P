@@ -8,10 +8,16 @@
 
     <div th:include="includes/flash-message"></div>
 
-    <section class="uk-section uk-section-muted">
-        <div class="uk-width-medium uk-padding-small">
-            <h1 class="uk-heading-medium uk-padding-large uk-text-center"
-                th:text="#{app.home.title}"></h1>
+    <section class="uk-section uk-section-muted uk-width-1-1">
+
+        <div class="uk-flex uk-flex-center">
+            <div class="uk-card uk-card-default uk-card-body uk-width-large uk-padding">
+                <!-- Title -->
+                <h1 class="uk-heading-medium uk-text-center uk-margin-remove-bottom uk-padding-small"
+                    th:text="#{app.home.title}"></h1>
+                <hr class="uk-divider-icon uk-margin-small-top">
+                <p>TODO</p>
+            </div>
         </div>
     </section>
 </div>

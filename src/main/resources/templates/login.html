@@ -15,7 +15,12 @@
 
                 <!-- Affichage des erreurs -->
                 <div th:if="${param.error}" class="uk-alert-danger" uk-alert>
-                    <p>Identifiant ou mot de passe incorrect.</p>
+                    <p th:text="#{app.auth.login.error}"></p>
+                </div>
+
+                <!-- Affichage du logout -->
+                <div th:if="${param.logout}" class="uk-alert-primary" uk-alert>
+                    <p th:text="#{app.auth.logout.info}"></p>
                 </div>
 
                 <!-- login -->

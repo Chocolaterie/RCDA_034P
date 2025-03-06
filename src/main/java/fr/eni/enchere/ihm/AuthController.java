@@ -36,7 +36,7 @@ public class AuthController {
 
     @GetMapping("/login")
     public String showLoginPage() {
-        return "login"; // Retourne la page login.html
+        return "login";
     }
 
     @GetMapping("/sign-up")
