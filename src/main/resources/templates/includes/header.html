@@ -4,6 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" type="text/css" th:href="@{/vendor/uikit/css/uikit.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/vendor/eni/main.css}">
 
     <title>Enchère</title>
 </head>
@@ -28,9 +29,10 @@
                         <a href="#" data-uk-icon="icon:user"></a>
                         <div class="uk-navbar-dropdown uk-navbar-dropdown-bottom-left">
                             <ul class="uk-nav uk-navbar-dropdown-nav">
-                                <li class="uk-nav-header uk-text-small uk-text-primary">YOUR ACCOUNT</li>
+                                <li class="uk-nav-header uk-text-small uk-text-primary" th:text="#{app.auth.your_account.title}"></li>
                                 <li><a th:href="@{/show-profile}"><span data-uk-icon="icon: info"></span> Voir le le profil</a></li>
-                                <li><a th:href="@{/edit-profile}"><span data-uk-icon="icon: refresh"></span> Modifier le profil</a></li>
+                                <li><a th:href="@{/edit-profile}"><span data-uk-icon="icon: pencil"></span> Modifier le profil</a></li>
+                                <li><a th:href="@{/edit-password}"><span data-uk-icon="icon: lock"></span> Modifier le mot de passe</a></li>
                                 <li class="uk-nav-divider"></li>
                                 <li><a th:href="@{/logout}"><span data-uk-icon="icon: sign-out"></span> Logout</a></li>
 

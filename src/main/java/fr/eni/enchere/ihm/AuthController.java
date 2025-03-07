@@ -3,10 +3,7 @@ package fr.eni.enchere.ihm;
 import fr.eni.enchere.bo.Utilisateur;
 import fr.eni.enchere.common.LocaleHelpers;
 import fr.eni.enchere.security.AppUserDetails;
-import fr.eni.enchere.service.AuthRequestDTO;
-import fr.eni.enchere.service.AuthService;
-import fr.eni.enchere.service.ServiceResponse;
-import fr.eni.enchere.service.SignUpRequestDTO;
+import fr.eni.enchere.service.*;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,7 +78,7 @@ public class AuthController {
         ServiceResponse<Utilisateur> serviceResponse = authService.signUp(utilisateur);
 
         // Si erreur : Afficher erreur
-        if (!serviceResponse.code.equals("200")){
+        if (!serviceResponse.code.equals("200")) {
             // pas de redirect donc j'utilise le model pour envoyer un "flashMessage" et non le redirectAttributes
             model.addAttribute("flashMessage", new FlashMessage(FLASH_ERROR, serviceResponse.message));
 
@@ -109,5 +106,53 @@ public class AuthController {
         }
 
         return "auth/edit-profile";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/edit-password")
+    public String editPassword(@AuthenticationPrincipal AppUserDetails userDetails, @ModelAttribute("resetPasswordRequest") ResetPasswordRequestDTO resetPasswordRequest, Model model) {
+
+        if (!model.containsAttribute("resetPasswordRequest")) {
+            resetPasswordRequest = new ResetPasswordRequestDTO();
+            model.addAttribute("resetPasswordRequest", resetPasswordRequest);
+        }
+
+        return "auth/edit-password";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/edit-password")
+    public String editPasswordPerform(@AuthenticationPrincipal AppUserDetails userDetails, @Valid @ModelAttribute("resetPasswordRequest") ResetPasswordRequestDTO resetPasswordRequest, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
+
+        // 1 :: Controle de surface (formulaire)
+        // -- A la main ajouter confirmation de mot de passe
+        if (!resetPasswordRequest.getNewMotDePasse().equals(resetPasswordRequest.getNewMotDePasseConfirmation())) {
+            bindingResult.rejectValue("newMotDePasse", "app.error.password_confirm", "Les mot de passes doivent être identiques");
+        }
+
+        // Appeler le service mettre à jour le mot de passe
+        ServiceResponse<Utilisateur> serviceResponse = authService.editPassword(userDetails.getUser(), resetPasswordRequest.getMotDePasse(), resetPasswordRequest.getNewMotDePasse());
+
+        // Si erreur : Afficher erreur
+        if (!serviceResponse.code.equals("200")) {
+            model.addAttribute("flashMessage", new FlashMessage(FLASH_ERROR, serviceResponse.message));
+            return "auth/edit-password";
+        }
+
+        // -- Sinon succès
+        redirectAttributes.addFlashAttribute("flashMessage", new FlashMessage(FLASH_SUCCESS, serviceResponse.message));
+        return "redirect:/";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/edit-avatar")
+    public String editAvatar(@AuthenticationPrincipal AppUserDetails userDetails, @ModelAttribute("resetPasswordRequest") ResetPasswordRequestDTO resetPasswordRequest, Model model) {
+
+        if (!model.containsAttribute("resetPasswordRequest")) {
+            resetPasswordRequest = new ResetPasswordRequestDTO();
+            model.addAttribute("resetPasswordRequest", resetPasswordRequest);
+        }
+
+        return "auth/edit-avatar";
     }
 }

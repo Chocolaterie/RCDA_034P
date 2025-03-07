@@ -69,4 +69,18 @@ public class AuthDAO {
         return user;
     }
 
+    public Utilisateur updatePassword(Utilisateur user) {
+        String sql = "UPDATE Utilisateurs SET mot_de_passe = ? WHERE email = ?";
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+
+        jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, user.getMotDePasse());
+            ps.setString(2, user.getEmail());
+            return ps;
+        }, keyHolder);
+
+        return user;
+    }
+
 }

@@ -40,6 +40,10 @@
 
                     </fieldset>
 
+                    <ul class="uk-list uk-list-divider">
+                        <li><span class="uk-text-bold" th:text="#{app.field.credit.label}"></span> <span class="uk-float-right uk-text-muted" th:text="${#authentication.principal.user.credit} + ' point(s)'"></span></li>
+                    </ul>
+
                     <div class="uk-margin-bottom">
                         <button type="submit"
                                 class="uk-button uk-button-primary uk-border-pill uk-width-1-1" value="Submit"

@@ -1,4 +1,3 @@
-
 <!--FOOTER-->
 <footer class="uk-section uk-section-small" style="margin-bottom: 60px">
     <div class="uk-container">
@@ -7,7 +6,29 @@
                                            data-uk-tooltip><span data-uk-icon="uikit"></span></a></p>
     </div>
 </footer>
+
+<!-- UIkit Success Modal -->
+<div id="upload-success-modal" class="uk-flex-top"  uk-modal>
+    <div class="uk-modal-dialog uk-margin-auto-vertical uk-modal-body uk-text-center">
+        <span uk-icon="icon: check; ratio: 2" class="uk-text-success"></span>
+        <h2 class="uk-modal-title">Succès</h2>
+        <p id="modal-success-message"></p>
+        <button class="uk-button uk-button-primary uk-modal-close" type="button">OK</button>
+    </div>
+</div>
+
+<!-- UIkit Error Modal -->
+<div id="upload-error-modal" class="uk-flex-top"  uk-modal>
+    <div class="uk-modal-dialog uk-margin-auto-vertical uk-modal-body uk-text-center">
+        <span uk-icon="icon: warning; ratio: 2" class="uk-text-danger"></span>
+        <h2 class="uk-modal-title">Erreur</h2>
+        <p id="error-message">Une erreur est survenue.</p>
+        <button class="uk-button uk-button-danger uk-modal-close" type="button">OK</button>
+    </div>
+</div>
+
 <!--/FOOTER-->
 <script th:src="@{/vendor/uikit/js/uikit.min.js}"></script>
 <script th:src="@{/vendor/uikit/js/uikit-icons.min.js}"></script>
+<script th:src="@{/vendor/eni/eni-main.js}"></script>
 </body>

@@ -29,6 +29,7 @@ public class SecurityConfig {
 
         http
                 .authorizeHttpRequests(auth -> auth
+
                         .anyRequest().permitAll() // Autorise le reste des routes
                 )
                 .formLogin(form -> form

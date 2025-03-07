@@ -82,4 +82,28 @@ public class AuthService {
         // Succès
         return ServiceHelpers.buildResponse("200", "Inscription effectué", insertedUser);
     }
+
+    public ServiceResponse<Utilisateur> editPassword(Utilisateur user, String password, String newPassword) {
+
+        // Erreur : Le mot de passe actuel est incorrect
+        String passwordExtract = user.getMotDePasse().replace("{bcrypt}", "");
+        if (!passwordEncoder.matches(password, passwordExtract)) {
+            return ServiceHelpers.buildResponse("701", "Mot de passe incorrect");
+        }
+
+        // Générer le nouveau mot de passe haché
+        String newHashedPassword = "{bcrypt}" + passwordEncoder.encode(newPassword);
+        user.setMotDePasse(newHashedPassword);
+
+        // Appel DAO pour update le password de l'user
+        Utilisateur updatedUser = authDAO.updatePassword(user);
+
+        // Si null alors echec inscription
+        if (updatedUser == null) {
+            return ServiceHelpers.buildResponse("701", "Erreur lors de la modification du mot de passe");
+        }
+
+        // Succès
+        return ServiceHelpers.buildResponse("200", "Modification du mot de passe effectué avec succès", updatedUser);
+    }
 }

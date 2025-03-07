@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<!-- Header -->
+<div th:include="includes/header"></div>
+
+<div class="uk-flex uk-flex-column uk-background-muted uk-height-viewport" data-uk-height-viewport>
+
+    <div th:include="includes/flash-message"></div>
+
+    <section class="uk-section uk-section-muted uk-width-1-1">
+
+        <div class="uk-flex uk-flex-center">
+            <div class="uk-card uk-card-default uk-card-body uk-width-large uk-padding">
+
+                <!-- Title -->
+                <h1 class="uk-heading-medium uk-text-center uk-margin-remove-bottom uk-padding-small"
+                    th:text="#{app.article.photo.title}"></h1>
+                <hr class="uk-divider-icon uk-margin-small-top">
+
+                <!-- Avatarupload -->
+                <form id="upload-form" class="toggle-class" action="/edit-avatar" method="post" enctype="multipart/form-data">
+
+                    <!-- UIkit Upload Box -->
+                    <div class="js-upload uk-placeholder uk-text-center">
+                        <span uk-icon="icon: cloud-upload"></span>
+                        <span class="uk-text-middle">Attach a photo by dropping it here or</span>
+                        <div uk-form-custom>
+                            <input type="file" id="file-input" name="file" accept="image/*">
+                            <span class="uk-link">select one</span>
+                        </div>
+                        <!-- Prévisualisation de l'image -->
+                        <div id="preview-container" class="uk-margin uk-text-center" hidden>
+                            <img id="image-preview" src="" alt="Preview" class="uk-border-rounded"
+                                 style="max-width: 100%; max-height: 200px;">
+                        </div>
+                    </div>
+
+                    <!-- Boutons -->
+                    <div class="uk-margin-bottom">
+                        <button id="cancelButton" type="button" class="uk-button uk-button-secondary uk-border-pill uk-width-1-1">
+                            Annuler
+                        </button>
+                    </div>
+
+                    <div class="uk-margin-bottom">
+                        <button type="submit" class="uk-button uk-button-primary uk-border-pill uk-width-1-1">
+                            Envoyer
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </section>
+</div>
+
+<progress id="js-progressbar" class="uk-progress" value="0" max="100" hidden></progress>
+
+<div th:include="includes/footer"></div>
+
+<script th:src="@{/vendor/eni/eni-upload.js}"></script>
+
+</html>
